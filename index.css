@@ -9,6 +9,12 @@ iframe {
   height: 50vh;
 }
 
+textarea {
+  resize: none;
+  border: 1px solid grey;
+  width: 80%;
+}
+
 .root {
   width: 100%;
   height: 100vh;

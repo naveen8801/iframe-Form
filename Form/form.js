@@ -25,7 +25,6 @@ async function onLoad() {
 const onChangeCountry = async (e) => {
   let val = e.value;
   let statesOptions = [];
-  console.log(val);
   if (val) {
     const countryStateData = await fetchCountries();
     statesOptions = getStatesOptions(countryStateData, val);

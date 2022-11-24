@@ -9,6 +9,15 @@
   </head>
   <body>
     <div class="root">
+      <div style="width: 50%">
+        <h2>Configure Validations</h2>
+        <textarea
+          id="validationText"
+          rows="20"
+          onchange="handleValidationChange(this)"
+          onblur="handleOnFocus(this)"
+        ></textarea>
+      </div>
       <iframe name="myframe" id="frame1" src="./Form/form.html"></iframe>
     </div>
   </body>
