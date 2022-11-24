@@ -1,1 +1,5 @@
-console.log('in');
+window.addEventListener('load', onLoad);
+
+function onLoad() {
+  console.log('in');
+}
