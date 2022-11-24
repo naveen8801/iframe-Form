@@ -15,6 +15,7 @@ async function onLoad() {
     document.getElementById('myform').dataset.validators = event.data;
   });
 
+  // onClick Save Button
   saveBtn.addEventListener('click', handleSubmit);
 
   // Fetch Countries and States data
