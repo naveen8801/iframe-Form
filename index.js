@@ -5,7 +5,7 @@ function onLoad() {
 
   // Setting default validations
   let defaultData = JSON.stringify(
-    JSON.parse('{"Apple" : true , "B" : "f"}'),
+    JSON.parse('{"validators" : [{"field" : "state" , "validator" : [{"required" : true}]}]}'),
     null,
     4
   );
