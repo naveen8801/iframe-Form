@@ -4,6 +4,13 @@ input {
   height: 30px;
 }
 
+select {
+  margin: 0.5rem 0;
+  width: 80.9%;
+  height: 38px;
+  box-sizing: border-box;
+}
+
 form {
   display: flex;
   flex-direction: column;

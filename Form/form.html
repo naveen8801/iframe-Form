@@ -9,12 +9,27 @@
   </head>
   <body>
     <form method="post" target="myframe">
-      <input type="text" name="Name" />
-      <input type="text" name="Email" />
-      <input type="text" name="Contact No." />
-      <input type="text" name="Country" />
-      <input type="text" name="State" />
-      <input type="submit" name="Save" value="Save" />
+      <input id="name" type="text" name="Name" placeholder="Name" />
+      <input id="email" type="text" name="Email" placeholder="Email" />
+      <input
+        id="contact"
+        type="text"
+        name="Contact No."
+        placeholder="Contact No."
+      />
+      <select
+        id="country"
+        name="Country"
+        placeholder="Country"
+        onchange="onChangeCountry(this)"
+      >
+        <option value="">Select Country</option>
+      </select>
+      <select id="state" name="State" placeholder="State">
+        <option value="">Select State</option>
+      </select>
+      <input id="saveBtn" type="submit" name="Save" placeholder="Save" />
     </form>
   </body>
+  <script src="./form.js"></script>
 </html>
