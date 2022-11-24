@@ -8,7 +8,7 @@
     <title>Form</title>
   </head>
   <body>
-    <form method="post" target="myframe">
+    <form id="myform" target="myframe" onsubmit="handleSubmit(this)">
       <input id="name" type="text" name="Name" placeholder="Name" />
       <input id="email" type="text" name="Email" placeholder="Email" />
       <input

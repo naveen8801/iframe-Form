@@ -1,10 +1,5 @@
 window.addEventListener('load', onLoad);
 
-// Event to recieve validations
-window.addEventListener('message', function (event) {
-  console.log('Message received from the parent: ' + event.data); // Message received from parent
-});
-
 async function onLoad() {
   //Form elements
   let name = document.getElementById('name');
@@ -13,6 +8,13 @@ async function onLoad() {
   let country = document.getElementById('country');
   let state = document.getElementById('state');
   let saveBtn = document.getElementById('saveBtn');
+  let form = document.getElementById('myform');
+
+  // Event to recieve validations
+  window.addEventListener('message', function (event) {
+    let data = JSON.parse(event.data);
+    document.getElementById('myform').dataset.validations = event.data;
+  });
 
   // Fetch Countries and States data
   const countryStateData = await fetchCountries();
@@ -26,6 +28,13 @@ async function onLoad() {
     country.add(option);
   });
 }
+
+const handleSubmit = (e) => {
+  let ele = document.getElementById('myform').dataset;
+  let obj = { ...ele };
+  const validations = JSON.parse(obj['validations']);
+  console.log(JSON.stringify(validations, null, 2));
+};
 
 const onChangeCountry = async (e) => {
   let val = e.value;

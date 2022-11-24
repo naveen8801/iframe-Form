@@ -24,7 +24,6 @@ const sendDataToIframe = (val) => {
 };
 
 const handleOnFocus = (e) => {
-  console.log(e.value);
   let element = document.getElementById('validationText');
   if (e.value) {
     try {
