@@ -1,5 +1,10 @@
 window.addEventListener('load', onLoad);
 
+// Event to recieve validations
+window.addEventListener('message', function (event) {
+  console.log('Message received from the parent: ' + event.data); // Message received from parent
+});
+
 async function onLoad() {
   //Form elements
   let name = document.getElementById('name');
