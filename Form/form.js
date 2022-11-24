@@ -12,9 +12,10 @@ async function onLoad() {
 
   // Event to recieve validations
   window.addEventListener('message', function (event) {
-    let data = JSON.parse(event.data);
-    document.getElementById('myform').dataset.validations = event.data;
+    document.getElementById('myform').dataset.validators = event.data;
   });
+
+  saveBtn.addEventListener('click', handleSubmit);
 
   // Fetch Countries and States data
   const countryStateData = await fetchCountries();
@@ -30,10 +31,36 @@ async function onLoad() {
 }
 
 const handleSubmit = (e) => {
+  let name = document.getElementById('name');
+  let email = document.getElementById('email');
+  let contact = document.getElementById('contact');
+  let country = document.getElementById('country');
+  let state = document.getElementById('state');
+
   let ele = document.getElementById('myform').dataset;
-  let obj = { ...ele };
-  const validations = JSON.parse(obj['validations']);
-  console.log(JSON.stringify(validations, null, 2));
+  let obj = { ...ele }['validators'];
+
+  let validators = JSON.parse(obj);
+
+  let data = {
+    name: name.value,
+    email: email.value,
+    contact: contact.value,
+    country: country.value,
+    state: state.value,
+  };
+
+  let customValidationResults = handleCustomValidation(
+    validators['validators'],
+    data
+  );
+
+  return false;
+};
+
+const handleCustomValidation = (validators, data) => {
+  console.log(validators);
+  console.log(data);
 };
 
 const onChangeCountry = async (e) => {
