@@ -10,7 +10,7 @@ function onLoad() {
       const result = JSON.parse(event.data);
       if (result.passed) {
         resultDiv.style.color = 'green';
-        resultDiv.style.fontSize = '16px';
+        resultDiv.style.fontSize = '20px';
       } else {
         resultDiv.style.color = 'red';
         resultDiv.style.fontSize = '20px';
