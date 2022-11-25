@@ -3,9 +3,16 @@ window.addEventListener('load', onLoad);
 function onLoad() {
   let element = document.getElementById('validationText');
 
+  // Recieve message from iframe
+  window.addEventListener('message', function (event) {
+    console.log('Message received from the child: ' + event.data); // Message received from child
+  });
+
   // Setting default validations
   let defaultData = JSON.stringify(
-    JSON.parse('{"validators" : [{"field" : "state" , "validator" : [{"required" : true}]}]}'),
+    JSON.parse(
+      '{"validators":[{"field":"state","validator":[{"required":true}]},{"field":"country","validator":[{"required":true}]},{"field":"email","validator":[{"validateEmail":false}]},{"field":"name","validator":[{"lengthRange":"4-10"},{"required":true}]},{"field":"contact","validator":[{"length":10}]}]}'
+    ),
     null,
     4
   );

@@ -56,12 +56,122 @@ const handleSubmit = (e) => {
     data
   );
 
+  // If Custom validaiton failed then send errors to parent
+  if (Object.keys(customValidationResults).length > 0) {
+    let result = {
+      passed: false,
+      errros: customValidationResults,
+    };
+    sendDataToParent(JSON.stringify(result));
+  } else {
+    let result = {
+      passed: true,
+    };
+    sendDataToParent(JSON.stringify(result));
+  }
+
   return false;
 };
 
+const sendDataToParent = (val) => {
+  // Sending validations result to parent
+  if (val) {
+    window.parent.postMessage(val, '*');
+  }
+};
+
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
 const handleCustomValidation = (validators, data) => {
-  console.log(validators);
-  console.log(data);
+  let errors = {};
+
+  try {
+    for (let i = 0; i < validators.length; i++) {
+      const field = validators[i].field;
+      const validator = validators[i].validator;
+
+      let errs = [];
+
+      for (let j = 0; j < validator.length; j++) {
+        const validatorType = Object.keys(validator[j])[0];
+        const validatorValue = validator[j][validatorType];
+
+        // Validate required type
+        if (
+          validatorType === 'required' &&
+          validatorValue &&
+          data[field].trim().length === 0 &&
+          !data.field
+        ) {
+          errs.push(`${field} is required field`);
+        }
+
+        // Validate minLength type
+        if (
+          validatorType === 'minLength' &&
+          data[field].trim().length >= validatorValue
+        ) {
+          errs.push(`minimum length of ${field} should be ${validatorValue}`);
+        }
+
+        // Validate maxLength type
+        if (
+          validatorType === 'maxLength' &&
+          data[field].trim().length <= validatorValue
+        ) {
+          errs.push(`maximum length of ${field} can be ${validatorValue}`);
+        }
+
+        // Validate length type
+        if (
+          validatorType === 'length' &&
+          data[field].trim().length !== validatorValue
+        ) {
+          errs.push(`length of ${field} should be ${validatorValue}`);
+        }
+
+        // Validate validateEmail type ( only in case of email )
+        if (validatorType === 'validateEmail' && field === 'email') {
+          if (!validateEmail(data.email) && validatorValue) {
+            errs.push(`Email should be valid`);
+          }
+        }
+
+        // Validate lengthRange type
+        if (validatorType === 'lengthRange') {
+          let minLen = validatorValue.split('-')[0];
+          let maxLen = validatorValue.split('-')[0];
+
+          if (
+            data[field].trim().length > 0 &&
+            (data[field].trim().length < minLen ||
+              data[field].trim().length > maxLen)
+          ) {
+            errs.push(
+              `length of ${field} should be in range ${validatorValue}`
+            );
+          }
+        }
+      }
+
+      if (errs.length > 0) {
+        errors[field] = errs;
+      }
+    }
+
+    return errors;
+  } catch (err) {
+    console.log(err);
+    console.log('Something went wrong during validation');
+    errors['msg'] = 'Something went wrong during validation';
+    return errors;
+  }
 };
 
 const onChangeCountry = async (e) => {
@@ -73,11 +183,17 @@ const onChangeCountry = async (e) => {
 
     let state = document.getElementById('state');
 
+    removeOptions(document.getElementById('state'));
+    var option = document.createElement('option');
+    option.text = 'Select state';
+    option.value = '';
+    state.add(option);
+
     if (statesOptions.length === 0) {
       removeOptions(document.getElementById('state'));
       var option = document.createElement('option');
       option.text = 'No States';
-      option.value = 'NULL';
+      option.value = 'No States';
       state.add(option);
       return;
     }
@@ -125,3 +241,56 @@ const fetchCountries = async () => {
   let jsonRes = await res.json();
   return jsonRes;
 };
+
+/*
+
+{
+    "validators": [
+        {
+            "field": "state",
+            "validator": [
+                {
+                    "required": true
+                }
+            ]
+        },
+        {
+            "field": "country",
+            "validator": [
+                {
+                    "required": true
+                }
+            ]
+        },
+        {
+            "field": "email",
+            "validator": [
+                {
+                    "validateEmail": false
+                }
+            ]
+        },
+        {
+            "field": "name",
+            "validator": [
+                {
+                    "lengthRange": "4-10"
+                },
+                {
+                    "required": true
+                }
+            ]
+        },
+        {
+            "field": "contact",
+            "validator": [
+                {
+                    "length": 10
+                }
+            ]
+        }
+    ]
+}
+
+
+*/
