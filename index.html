@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="root">
-      <div style="width: 50%">
+      <div style="width: 50%; margin: 1rem">
         <h2>Configure Validations</h2>
         <textarea
           id="validationText"
@@ -17,8 +17,11 @@
           onblur="handleOnFocus(this)"
         ></textarea>
       </div>
-      <iframe name="myframe" id="frame1" src="./Form/form.html"></iframe>
+      <div style="width: 50%; margin: 1rem">
+        <iframe name="myframe" id="frame1" src="./Form/form.html"></iframe>
+      </div>
     </div>
+    <div id="result" class="result-div"></div>
   </body>
   <script src="./index.js"></script>
 </html>

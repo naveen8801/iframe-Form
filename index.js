@@ -2,10 +2,22 @@ window.addEventListener('load', onLoad);
 
 function onLoad() {
   let element = document.getElementById('validationText');
+  let resultDiv = document.getElementById('result');
 
   // Recieve message from iframe
   window.addEventListener('message', function (event) {
-    console.log('Message received from the child: ' + event.data); // Message received from child
+    try {
+      const result = JSON.parse(event.data);
+      console.log(result);
+      if (result.passed) {
+        resultDiv.style.color = 'green';
+      } else {
+        resultDiv.style.color = 'red';
+      }
+      resultDiv.innerHTML = event.data;
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   // Setting default validations

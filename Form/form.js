@@ -146,7 +146,7 @@ const handleCustomValidation = (validators, data) => {
         // Validate lengthRange type
         if (validatorType === 'lengthRange') {
           let minLen = validatorValue.split('-')[0];
-          let maxLen = validatorValue.split('-')[0];
+          let maxLen = validatorValue.split('-')[1];
 
           if (
             data[field].trim().length > 0 &&
