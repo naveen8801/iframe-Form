@@ -8,13 +8,14 @@ function onLoad() {
   window.addEventListener('message', function (event) {
     try {
       const result = JSON.parse(event.data);
-      console.log(result);
       if (result.passed) {
         resultDiv.style.color = 'green';
+        resultDiv.style.fontSize = '16px';
       } else {
         resultDiv.style.color = 'red';
+        resultDiv.style.fontSize = '20px';
       }
-      resultDiv.innerHTML = event.data;
+      resultDiv.innerHTML = `<p style="text-align :center;">${event.data}</p>`;
     } catch (err) {
       console.log(err);
     }

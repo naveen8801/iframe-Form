@@ -41,7 +41,15 @@ const handleSubmit = (e) => {
   let ele = document.getElementById('myform').dataset;
   let obj = { ...ele }['validators'];
 
-  let validators = JSON.parse(obj);
+  let validators;
+
+  try {
+    validators = JSON.parse(obj);
+  } catch (err) {
+    validators = [];
+    console.log(err);
+    console.log('Error in parsing validation data');
+  }
 
   let data = {
     name: name.value,
