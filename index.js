@@ -23,7 +23,7 @@ function onLoad() {
   // Setting default validations
   let defaultData = JSON.stringify(
     JSON.parse(
-      '{"validators":[{"field":"state","validator":[{"required":true}]},{"field":"country","validator":[{"required":true}]},{"field":"email","validator":[{"validateEmail":false}]},{"field":"name","validator":[{"lengthRange":"4-10"},{"required":true}]},{"field":"contact","validator":[{"length":10}]}]}'
+      '{"validators":[{"field":"state","validator":[{"required":true}]},{"field":"country","validator":[{"required":true}]},{"field":"email","validator":[{"validateEmail":true}]},{"field":"name","validator":[{"lengthRange":"4-10"},{"required":true}]},{"field":"contact","validator":[{"length":10}]}]}'
     ),
     null,
     4

@@ -20,7 +20,7 @@
       "field": "email",
       "validator": [
         {
-          "validateEmail": false
+          "validateEmail": true
         }
       ]
     },
